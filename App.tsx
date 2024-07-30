@@ -10,7 +10,6 @@ import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 //import Task16 from './Tasks/Task16';
 //import Task17 from './Tasks/Task17';
 import Task18 from './Tasks/Task18';
-//import Task18 from './Tasks/Task18';
 
 function App(): React.JSX.Element {
   return (
