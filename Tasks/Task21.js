@@ -1,8 +1,8 @@
-import MyClassPage from '../components/ComponentFunction_19';
+import MyFunctionPage from '../components/ComponentFunction_21';
 import React, {useState} from 'react';
 import {View, Button} from 'react-native';
 
-export default function Task19() {
+export default function Task21() {
   const [ShowPage, setShowPage] = useState(false);
   const HandlePress = () => {
     setShowPage(!ShowPage);
@@ -10,7 +10,7 @@ export default function Task19() {
   return (
     <View>
       <Button title="Show" onPress={HandlePress} />
-      {ShowPage ? <MyClassPage /> : null}
+      {ShowPage ? <MyFunctionPage /> : null}
     </View>
   );
 }
