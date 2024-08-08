@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import {TextInput, SafeAreaView, View} from 'react-native';
+import {TextInput, SafeAreaView, View, StyleSheet} from 'react-native';
 import MyFunctionPage from '../components/ComponentFunction_24';
 
 export default function Task24() {
@@ -20,16 +20,19 @@ export default function Task24() {
           placeholder="Type something..."
           value={text}
           onChangeText={handleTextChange}
-          style={{
-            height: 40,
-            borderColor: '#ccc',
-            borderWidth: 3,
-            marginBottom: 10,
-            paddingHorizontal: 8,
-          }}
+          style={styles.TextInput}
         />
       </View>
       <MyFunctionPage ref={myFunctionPageRef} />
     </SafeAreaView>
   );
 }
+const styles = StyleSheet.create({
+  TextInput: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 3,
+    marginBottom: 10,
+    paddingHorizontal: 8,
+  },
+});
