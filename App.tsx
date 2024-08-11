@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 //import Task16 from './Tasks/Task16';
 //import Task17 from './Tasks/Task17';
 //import Task18 from './Tasks/Task18';
@@ -17,14 +17,14 @@ import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 //import Task23 from './Tasks/Task23';
 //import Task24 from './Tasks/Task24';
 //import Task25 from './Tasks/Task25';
-import Task26 from './Tasks/Task26';
+//import Task26 from './Tasks/Task26';
+import Task27 from './Tasks/Task27';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Text style={styles.text}>Welcome!</Text>
-        <Task26 />
+        <Task27 />
       </View>
     </SafeAreaView>
   );
