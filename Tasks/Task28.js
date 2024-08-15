@@ -21,6 +21,7 @@ import Dog from '../Resources/Dog.webp';
 import panda from '../Resources/panda.webp';
 import space from '../Resources/space.jpg';
 import tree from '../Resources/Tree.webp';
+import {Modal} from 'react-native';
 
 export default function Task28() {
   const [Picture, setPictures] = useState([
@@ -44,6 +45,12 @@ export default function Task28() {
   function RemovePicture(key) {
     setPictures(prevPictures => prevPictures.filter(item => item.key !== key));
   }
+  function AddPicture(item) {
+    const newKey = (parseInt(Picture[Picture.length - 1]?.key) + 1).toString();
+    const newPicture = {name: item.name, key: newKey};
+    setPictures(prevPictures => [...prevPictures, newPicture]);
+    InputIndex(Picture.length - 1);
+  }
   function InputIndex(index) {
     if (FlatListRef.current && index >= 0 && index < Picture.length) {
       FlatListRef.current.scrollToIndex({
@@ -51,10 +58,7 @@ export default function Task28() {
         index: parseInt(index),
       });
     } else {
-      Alert.alert(
-        'Invalid Index',
-        'Please enter a valid index between 0 and 9',
-      );
+      Alert.alert('Invalid Index', 'Please enter a valid index');
     }
   }
   function handleButtonPress() {
@@ -70,17 +74,13 @@ export default function Task28() {
         ],
       );
     } else {
-      Alert.alert(
-        'Image Index',
-        'Please Input Index between 0-9 To Show Picture ',
-        [
-          {
-            text: 'Cancel',
-            style: 'cancel',
-          },
-          {text: 'OK', onPress: () => InputIndex(textIndex)},
-        ],
-      );
+      Alert.alert('Image Index', 'Please Input Index To Show Picture ', [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => InputIndex(textIndex)},
+      ]);
     }
   }
   return (
@@ -100,8 +100,13 @@ export default function Task28() {
               </Pressable>
               <Pressable
                 onPress={() => RemovePicture(item.key)}
-                style={styles.icon}>
-                <Text>Remove</Text>
+                style={styles.Righticon}>
+                <Text style={styles.iconText}>Remove</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => AddPicture(item)}
+                style={styles.Lefticon}>
+                <Text style={styles.iconText}>Add</Text>
               </Pressable>
             </View>
           )}
@@ -130,12 +135,12 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     elevation: 5,
   },
-  icon: {
+  Righticon: {
     marginTop: 250,
     position: 'absolute',
     top: 5,
     right: 5,
-    backgroundColor: 'rgba(255,20,147,0.8)',
+    backgroundColor: 'rgba(0, 122, 255, 0.8)',
     borderRadius: 10,
     padding: 5,
     zIndex: 1,
@@ -157,5 +162,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 4,
+  },
+  iconText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  Lefticon: {
+    marginTop: 250,
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    backgroundColor: 'rgba(0, 122, 255, 0.8)',
+    borderRadius: 10,
+    padding: 5,
+    zIndex: 1,
+    elevation: 5,
+    width: 56,
+    alignItems: 'center',
   },
 });
