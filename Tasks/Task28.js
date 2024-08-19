@@ -9,8 +9,8 @@ import {
   View,
   Text,
   Button,
-  TextInput,
 } from 'react-native';
+import DialogInput from 'react-native-dialog-input';
 import CatPic from '../Resources/Cat.webp';
 import EarthPic from '../Resources/Earth.jpg';
 import DogPic from '../Resources/DogAI.webp';
@@ -21,7 +21,6 @@ import Dog from '../Resources/Dog.webp';
 import panda from '../Resources/panda.webp';
 import space from '../Resources/space.jpg';
 import tree from '../Resources/Tree.webp';
-import {Modal} from 'react-native';
 
 export default function Task28() {
   const [Picture, setPictures] = useState([
@@ -36,7 +35,7 @@ export default function Task28() {
     {name: space, key: '9'},
     {name: tree, key: '10'},
   ]);
-  const [textIndex, setTextIndex] = useState('');
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
   const FlatListRef = useRef(null);
   const TextInputRef = useRef(null);
   function PressImage(index) {
@@ -46,42 +45,30 @@ export default function Task28() {
     setPictures(prevPictures => prevPictures.filter(item => item.key !== key));
   }
   function AddPicture(item) {
-    const newKey = (parseInt(Picture[Picture.length - 1]?.key) + 1).toString();
+    const newKey = (
+      parseInt(Picture[Picture.length - 1]?.key, 10) + 1
+    ).toString();
     const newPicture = {name: item.name, key: newKey};
     setPictures(prevPictures => [...prevPictures, newPicture]);
     InputIndex(Picture.length - 1);
   }
   function InputIndex(index) {
-    if (FlatListRef.current && index >= 0 && index < Picture.length) {
+    const parsedIndex = parseInt(index, 10);
+    if (
+      !isNaN(parsedIndex) &&
+      parsedIndex >= 0 &&
+      parsedIndex < Picture.length
+    ) {
       FlatListRef.current.scrollToIndex({
         animated: true,
-        index: parseInt(index),
+        index: parsedIndex,
       });
     } else {
       Alert.alert('Invalid Index', 'Please enter a valid index');
     }
   }
   function handleButtonPress() {
-    if (textIndex === '') {
-      Alert.alert(
-        'Input Required',
-        'Please enter an index to show the picture.',
-        [
-          {
-            text: 'OK',
-            onPress: () => TextInputRef.current.focus(),
-          },
-        ],
-      );
-    } else {
-      Alert.alert('Image Index', 'Please Input Index To Show Picture ', [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {text: 'OK', onPress: () => InputIndex(textIndex)},
-      ]);
-    }
+    setIsDialogVisible(true);
   }
   return (
     <SafeAreaView>
@@ -112,14 +99,18 @@ export default function Task28() {
           )}
         />
         <Button title="Show Image" onPress={handleButtonPress} />
-        <TextInput
+        <DialogInput
           ref={TextInputRef}
+          isDialogVisible={isDialogVisible}
           style={styles.input}
-          placeholder="Insert Index Of Image..."
-          placeholderTextColor="#999"
           keyboardType="numeric"
-          onChangeText={setTextIndex}
-          value={textIndex}
+          title="Input Required"
+          message="Please insert the index of the image you want to scroll to:"
+          submitInput={inputText => {
+            setIsDialogVisible(false);
+            InputIndex(inputText);
+          }}
+          closeDialog={() => setIsDialogVisible(false)}
         />
       </View>
     </SafeAreaView>
