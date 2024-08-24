@@ -19,13 +19,15 @@ import {SafeAreaView, StyleSheet, View} from 'react-native';
 //import Task25 from './Tasks/Task25';
 //import Task26 from './Tasks/Task26';
 //import Task27 from './Tasks/Task27';
-import Task28 from './Tasks/Task28';
+//import Task28 from './Tasks/Task28';
+//import Task32 from './Tasks/Task32';
+import Task33 from './Tasks/Task33';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <View>
-        <Task28 />
+        <Task33 />
       </View>
     </SafeAreaView>
   );
