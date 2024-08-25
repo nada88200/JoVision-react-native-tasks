@@ -16,6 +16,7 @@ export default function Task32() {
           style={styles.video}
           resizeMode="cover"
           paused={paused}
+          controls={true}
           onEnd={() => setPaused(true)}
         />
       </TouchableOpacity>
