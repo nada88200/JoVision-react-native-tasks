@@ -1,10 +1,14 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, Text, ScrollView, RefreshControl} from 'react-native';
 
 export default function Task36() {
-  const randomTexts = Array.from({length: 100}, () => generateRandomWord(10));
+  function wordsGenerater() {
+    const randomTexts = Array.from({length: 100}, () => generateRandomWord(10));
+    return randomTexts;
+  }
+
   const [refreshing, setRefreshing] = useState(false);
-  const [generated, setGenerated] = useState(generateRandomWord());
+  const [randomwords, setRandomWords] = useState(wordsGenerater());
   function generateRandomWord(length) {
     let result = '';
     const characters = 'abcdefghijklmnopqrstuvwxyz';
@@ -15,20 +19,20 @@ export default function Task36() {
     }
     return result;
   }
-  const onRefresh = useCallback(() => {
+  const onRefresh = () => {
     setRefreshing(true);
     setTimeout(() => {
-      setGenerated(generateRandomWord());
+      setRandomWords(wordsGenerater());
       setRefreshing(false);
     }, 500);
-  }, []);
+  };
   return (
     <View>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        {randomTexts.map((text, index) => (
+        {randomwords.map((text, index) => (
           <Text key={index} style={styles.text}>
             {text}
           </Text>
